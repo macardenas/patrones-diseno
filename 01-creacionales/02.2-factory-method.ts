@@ -29,6 +29,7 @@ import { COLORS } from '../helpers/colors.ts';
 // 1. Definir la interfaz Report
 interface Report {
   generate(): void;
+  printer(): void
 }
 
 // 2. Clases concretas de Reportes
@@ -38,11 +39,19 @@ class SalesReport implements Report {
   generate(): void {
     console.log('%cGenerando reporte de ventas...', COLORS.green);
   }
+
+  printer(): void {
+    console.log('%c Imprimiendo documento sales...', COLORS.cyan)
+  }
 }
 
 class InventoryReport implements Report {
   generate(): void {
     console.log('%cGenerando reporte de inventario...', COLORS.orange);
+  }
+
+  printer(): void {
+    console.log('%c Imprimiendo documento inventario...', COLORS.brown)
   }
 }
 
@@ -54,6 +63,11 @@ abstract class ReportFactory {
   generateReport(): void {
     const report = this.createReport();
     report.generate();
+  }
+
+  printerReport(): void {
+    const printerReport = this.createReport();
+    printerReport.printer()
   }
 }
 
@@ -85,6 +99,7 @@ function main() {
   }
 
   reportFactory.generateReport();
+  reportFactory.printerReport();
 }
 
 main();
